@@ -34,7 +34,7 @@ if env | grep "DOCKER_VERNEMQ_DISCOVERY_NODE" -q; then
         discovery_node=$tmp
     fi
 
-    sed -i.bak -r "/-eval.+/d" /vernemq/etc/vm.args 
+    sed -i.bak -r "/-eval.+/d" /vernemq/etc/vm.args
     echo "-eval \"vmq_server_cmd:node_join('VerneMQ@$discovery_node')\"" >> /vernemq/etc/vm.args
 fi
 
@@ -84,7 +84,7 @@ else
 
     echo "########## Start ##########" >> /vernemq/etc/vernemq.conf
 
-    env | grep DOCKER_VERNEMQ | grep -v 'DISCOVERY_NODE\|KUBERNETES\|SWARM\|COMPOSE\|DOCKER_VERNEMQ_USER' | cut -c 16- | awk '{match($0,/^[A-Z0-9_]*/)}{print tolower(substr($0,RSTART,RLENGTH)) substr($0,RLENGTH+1)}' | sed 's/__/./g' >> /vernemq/etc/vernemq.conf
+    env | grep DOCKER_VERNEMQ | grev -v 'ACCEPT_EULA' | grep -v 'DISCOVERY_NODE\|KUBERNETES\|SWARM\|COMPOSE\|DOCKER_VERNEMQ_USER' | cut -c 16- | awk '{match($0,/^[A-Z0-9_]*/)}{print tolower(substr($0,RSTART,RLENGTH)) substr($0,RLENGTH+1)}' | sed 's/__/./g' >> /vernemq/etc/vernemq.conf
 
     users_are_set=$(env | grep DOCKER_VERNEMQ_USER)
     if [ ! -z "$users_are_set" ]; then
